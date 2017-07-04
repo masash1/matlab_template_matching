@@ -1,4 +1,4 @@
-function out = ssd(target, template)
+function posSSD = ssd(target, template)
 
 % template matching using SSD
 
@@ -28,7 +28,8 @@ for j = 1 : (rTar - rTem + 1)
         % reference in target
         ref = target(j:(j + rTem - 1), i:(i + cTem - 1));
         
-        % SSD algorithm
+        %% SSD algorithm
+        
         SSD = 0;
         for y = 1:rTem
             for x = 1:cTem
@@ -36,21 +37,20 @@ for j = 1 : (rTar - rTem + 1)
             end
         end
         
-        % diff map
-        P(j, i) = SSD;
-        
         % store minimum value & its position
         if minSSD > SSD
             minSSD = SSD;
             posSSD = [j, i, SSD];
         end
+        
+        % option: diff map
+        P(j, i) = SSD;
             
     end
 end
 
 posSSD
-figure;
-surf(P)
+figure; surf(P); title('SSD');
 
 end
                 

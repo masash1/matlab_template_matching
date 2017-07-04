@@ -1,21 +1,14 @@
-function out = sad(target, template)
+function posSAD = sad(target, template)
 
 % template matching using SAD
 
-% convert from uint8 to double
+% convert to double
 target = double(target);
 template = double(template);
 
 % get size
 [rTar, cTar] = size(target);
 [rTem, cTem] = size(template);
-
-% normalize data
-%target = target - mean(mean(target));
-%template = template - mean(mean(template));
-
-%target = (target - min(min(target))) / (max(max(target)) - min(min(target)));
-%template = (template - min(min(template))) / (max(max(template)) - min(min(template)));
 
 % initialize values
 P = zeros(rTar - rTem + 1, cTar - cTem + 1);
@@ -28,7 +21,8 @@ for j = 1 : (rTar - rTem + 1)
         % reference in target
         ref = target(j:(j + rTem - 1), i:(i + cTem - 1));
         
-        % SAD algorithm
+        %% SAD algorithm
+        
         SAD = 0;
         for y = 1:rTem
             for x = 1:cTem
@@ -36,21 +30,20 @@ for j = 1 : (rTar - rTem + 1)
             end
         end
         
-        % diff map
-        P(j, i) = SAD;
-        
         % store minimum value & its position
         if minSAD > SAD
             minSAD = SAD;
             posSAD = [j, i, SAD];
         end
+        
+        % option: diff map
+        P(j, i) = SAD;
             
     end
 end
 
 posSAD
-figure;
-surf(P)
+figure; surf(P); title('SAD');
 
 end
                 

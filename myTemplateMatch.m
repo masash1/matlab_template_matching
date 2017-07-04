@@ -15,9 +15,9 @@ title('orignal')
 % matlab function
 target1 = rgb2gray(target); % 108x155x1
 template1 = rgb2gray(template); % 26x22x1
-figure; imshow(target1)
-target1 = double(target1);
-figure; imshow(target1, 'DisplayRange', [min(template1(:)) max(template1(:))])
+%figure; imshow(target1)
+
+%figure; imshow(target1, 'DisplayRange', [min(template1(:)) max(template1(:))])
 %subplot(2, 3, 2)
 %imshow(target1, 'DisplayRange', [min(target1(:)) max(target1(:))])
 %title('matlab function')
@@ -58,8 +58,18 @@ figure; imshow(target1, 'DisplayRange', [min(template1(:)) max(template1(:))])
 %% template matching
 
 % sad
-sad(target1, template1)
+%posSAD = sad(target1, template1);
+%resultBox(target1, template1, posSAD);
 
 % ssd
-ssd(target1, template1)
+%posSSD = ssd(target1, template1);
+%resultBox(target1, template1, posSSD);
+
+% ncc
+posNCC = ncc(target1, template1);
+resultBox(target1, template1, posNCC);
+
+% zncc
+posZNCC = zncc(target1, template1);
+resultBox(target1, template1, posZNCC);
 
